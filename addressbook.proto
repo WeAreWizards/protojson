@@ -1,0 +1,29 @@
+// To generate the python protobuf interface call:
+// $ protoc addressbook.proto --python_out .
+
+message AddressBook {
+  repeated Contact contacts = 1;
+};
+
+message Contact {
+  optional string first_name = 1;
+  optional string last_name = 2;
+  repeated string address_lines = 3;
+  optional string postcode = 4;
+
+  repeated Phone phone_numbers = 5;
+};
+
+enum PhoneType {
+  MOBILE = 1;
+  LANDLINE = 2;
+}
+
+message Phone {
+  optional PhoneType type = 1;
+  optional string number = 2;
+};
+
+message SearchResult {
+  repeated Contact contacts = 1;
+};
