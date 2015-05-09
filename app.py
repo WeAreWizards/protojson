@@ -9,8 +9,10 @@ class GLOBAL:
     book_pb = addressbook_pb2.AddressBook(
         contacts=[
             addressbook_pb2.Contact(
-                first_name='Alice',
-                last_name='Bertram',
+                address=addressbook_pb2.Address(
+                    first_name='Alice',
+                    last_name='Bertram',
+                ),
                 phone_numbers=[
                     addressbook_pb2.Phone(type=addressbook_pb2.MOBILE, number='123'),
                     addressbook_pb2.Phone(type=addressbook_pb2.LANDLINE, number='567'),
@@ -20,12 +22,15 @@ class GLOBAL:
     )
     book_dict = {
         'contacts': [
-            {'first_name': 'Alice',
-             'last_name': 'Bertram',
-             'phone_numbers': [
-                 {'type': 'MOBILE', 'number': '123'},
-                 {'type': 'LANDLINE', 'number': '567'},
-             ]
+            {
+                'address': {
+                    'first_name': 'Alice',
+                    'last_name': 'Bertram',
+                },
+                'phone_numbers': [
+                    {'type': 'MOBILE', 'number': '123'},
+                    {'type': 'LANDLINE', 'number': '567'},
+                ]
             },
         ],
     }
@@ -53,7 +58,7 @@ def json_search_by_name():
     result = []
 
     for x in GLOBAL.book_dict.get('contacts', []):
-        if name in x['first_name'] or name in x['last_name']:
+        if name in x['address']['first_name'] or name in x['address']['last_name']:
             result.append(x)
 
     return json.dumps(result)
@@ -65,7 +70,7 @@ def pb_search_by_name():
     result = addressbook_pb2.SearchResult()
 
     for x in GLOBAL.book_pb.contacts:
-        if name in x.first_name or name in x.last_name:
+        if name in x.address.first_name or name in x.address.last_name:
             result.contacts.extend([x])
 
     return result.SerializeToString()

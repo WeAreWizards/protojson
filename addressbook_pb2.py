@@ -14,7 +14,7 @@ from google.protobuf import descriptor_pb2
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='addressbook.proto',
   package='',
-  serialized_pb='\n\x11\x61\x64\x64ressbook.proto\")\n\x0b\x41\x64\x64ressBook\x12\x1a\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x08.Contact\"x\n\x07\x43ontact\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x15\n\raddress_lines\x18\x03 \x03(\t\x12\x10\n\x08postcode\x18\x04 \x01(\t\x12\x1d\n\rphone_numbers\x18\x05 \x03(\x0b\x32\x06.Phone\"1\n\x05Phone\x12\x18\n\x04type\x18\x01 \x01(\x0e\x32\n.PhoneType\x12\x0e\n\x06number\x18\x02 \x01(\t\"*\n\x0cSearchResult\x12\x1a\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x08.Contact*%\n\tPhoneType\x12\n\n\x06MOBILE\x10\x01\x12\x0c\n\x08LANDLINE\x10\x02')
+  serialized_pb='\n\x11\x61\x64\x64ressbook.proto\")\n\x0b\x41\x64\x64ressBook\x12\x1a\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x08.Contact\"Y\n\x07\x41\x64\x64ress\x12\x12\n\nfirst_name\x18\x01 \x01(\t\x12\x11\n\tlast_name\x18\x02 \x01(\t\x12\x15\n\raddress_lines\x18\x03 \x03(\t\x12\x10\n\x08postcode\x18\x04 \x01(\t\"C\n\x07\x43ontact\x12\x19\n\x07\x61\x64\x64ress\x18\x01 \x01(\x0b\x32\x08.Address\x12\x1d\n\rphone_numbers\x18\x05 \x03(\x0b\x32\x06.Phone\"1\n\x05Phone\x12\x18\n\x04type\x18\x01 \x01(\x0e\x32\n.PhoneType\x12\x0e\n\x06number\x18\x02 \x01(\t\"*\n\x0cSearchResult\x12\x1a\n\x08\x63ontacts\x18\x01 \x03(\x0b\x32\x08.Contact*%\n\tPhoneType\x12\n\n\x06MOBILE\x10\x01\x12\x0c\n\x08LANDLINE\x10\x02')
 
 _PHONETYPE = _descriptor.EnumDescriptor(
   name='PhoneType',
@@ -33,8 +33,8 @@ _PHONETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=281,
-  serialized_end=318,
+  serialized_start=319,
+  serialized_end=356,
 )
 
 PhoneType = enum_type_wrapper.EnumTypeWrapper(_PHONETYPE)
@@ -71,6 +71,55 @@ _ADDRESSBOOK = _descriptor.Descriptor(
 )
 
 
+_ADDRESS = _descriptor.Descriptor(
+  name='Address',
+  full_name='Address',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='first_name', full_name='Address.first_name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='last_name', full_name='Address.last_name', index=1,
+      number=2, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='address_lines', full_name='Address.address_lines', index=2,
+      number=3, type=9, cpp_type=9, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='postcode', full_name='Address.postcode', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=unicode("", "utf-8"),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  options=None,
+  is_extendable=False,
+  extension_ranges=[],
+  serialized_start=64,
+  serialized_end=153,
+)
+
+
 _CONTACT = _descriptor.Descriptor(
   name='Contact',
   full_name='Contact',
@@ -79,35 +128,14 @@ _CONTACT = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='first_name', full_name='Contact.first_name', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
+      name='address', full_name='Contact.address', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='last_name', full_name='Contact.last_name', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='address_lines', full_name='Contact.address_lines', index=2,
-      number=3, type=9, cpp_type=9, label=3,
-      has_default_value=False, default_value=[],
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='postcode', full_name='Contact.postcode', index=3,
-      number=4, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=unicode("", "utf-8"),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='phone_numbers', full_name='Contact.phone_numbers', index=4,
+      name='phone_numbers', full_name='Contact.phone_numbers', index=1,
       number=5, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -122,8 +150,8 @@ _CONTACT = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=64,
-  serialized_end=184,
+  serialized_start=155,
+  serialized_end=222,
 )
 
 
@@ -157,8 +185,8 @@ _PHONE = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=186,
-  serialized_end=235,
+  serialized_start=224,
+  serialized_end=273,
 )
 
 
@@ -185,15 +213,17 @@ _SEARCHRESULT = _descriptor.Descriptor(
   options=None,
   is_extendable=False,
   extension_ranges=[],
-  serialized_start=237,
-  serialized_end=279,
+  serialized_start=275,
+  serialized_end=317,
 )
 
 _ADDRESSBOOK.fields_by_name['contacts'].message_type = _CONTACT
+_CONTACT.fields_by_name['address'].message_type = _ADDRESS
 _CONTACT.fields_by_name['phone_numbers'].message_type = _PHONE
 _PHONE.fields_by_name['type'].enum_type = _PHONETYPE
 _SEARCHRESULT.fields_by_name['contacts'].message_type = _CONTACT
 DESCRIPTOR.message_types_by_name['AddressBook'] = _ADDRESSBOOK
+DESCRIPTOR.message_types_by_name['Address'] = _ADDRESS
 DESCRIPTOR.message_types_by_name['Contact'] = _CONTACT
 DESCRIPTOR.message_types_by_name['Phone'] = _PHONE
 DESCRIPTOR.message_types_by_name['SearchResult'] = _SEARCHRESULT
@@ -203,6 +233,12 @@ class AddressBook(_message.Message):
   DESCRIPTOR = _ADDRESSBOOK
 
   # @@protoc_insertion_point(class_scope:AddressBook)
+
+class Address(_message.Message):
+  __metaclass__ = _reflection.GeneratedProtocolMessageType
+  DESCRIPTOR = _ADDRESS
+
+  # @@protoc_insertion_point(class_scope:Address)
 
 class Contact(_message.Message):
   __metaclass__ = _reflection.GeneratedProtocolMessageType
