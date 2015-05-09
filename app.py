@@ -6,8 +6,29 @@ app = flask.Flask(__name__)
 
 
 class GLOBAL:
-    book_pb = addressbook_pb2.AddressBook()
-    book_dict = {}
+    book_pb = addressbook_pb2.AddressBook(
+        contacts=[
+            addressbook_pb2.Contact(
+                first_name='Alice',
+                last_name='Bertram',
+                phone_numbers=[
+                    addressbook_pb2.Phone(type=addressbook_pb2.MOBILE, number='123'),
+                    addressbook_pb2.Phone(type=addressbook_pb2.LANDLINE, number='567'),
+                ],
+            )
+        ],
+    )
+    book_dict = {
+        'contacts': [
+            {'first_name': 'Alice',
+             'last_name': 'Bertram',
+             'phone_numbers': [
+                 {'type': 'MOBILE', 'number': '123'},
+                 {'type': 'LANDLINE', 'number': '567'},
+             ]
+            },
+        ],
+    }
 
 
 @app.route('/api/json/full', methods=['GET', 'POST'])
@@ -47,7 +68,7 @@ def pb_search_by_name():
 
     for x in GLOBAL.book_pb.contacts:
         if name in x.first_name or name in x.last_name:
-            result.contacts.append(x)
+            result.contacts.extend([x])
 
     return result.SerializeToString()
 
