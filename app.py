@@ -31,7 +31,7 @@ class GLOBAL:
     }
 
 
-@app.route('/api/json/full', methods=['GET', 'POST'])
+@app.route('/api/full.json', methods=['GET', 'POST'])
 def json_full():
     if flask.request.method == 'POST':
         GLOBAL.book_dict = json.loads(flask.request.data)
@@ -39,7 +39,7 @@ def json_full():
         return json.dumps(GLOBAL.book_dict)
 
 
-@app.route('/api/pb/full', methods=['GET', 'POST'])
+@app.route('/api/full.pb', methods=['GET', 'POST'])
 def pb_full():
     if flask.request.method == 'POST':
         GLOBAL.book_pb.ParseFromString(flask.request.data)
@@ -47,9 +47,8 @@ def pb_full():
         return GLOBAL.book_pb.SerializeToString()
 
 
-@app.route('/api/json/search-by-name', methods=['GET'])
+@app.route('/api/search-by-name.json', methods=['GET'])
 def json_search_by_name():
-    # e.g. curl 127.1:5000/api/pb/search-by-name?name="alice"
     name = flask.request.args.get('name')
     result = []
 
@@ -60,9 +59,8 @@ def json_search_by_name():
     return json.dumps(result)
 
 
-@app.route('/api/pb/search-by-name', methods=['GET'])
+@app.route('/api/search-by-name.pb', methods=['GET'])
 def pb_search_by_name():
-    # e.g. curl 127.1:5000/api/pb/search-by-name?name="alice"
     name = flask.request.args.get('name')
     result = addressbook_pb2.SearchResult()
 
