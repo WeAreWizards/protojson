@@ -2,10 +2,9 @@ Flask==0.10.1
 Jinja2==2.7.3
 MarkupSafe==0.15
 Werkzeug==0.9.6
-google-apputils==0.4.0
 itsdangerous==0.24
 mox==0.5.3
-protobuf==2.5.0
+protobuf==2.6.1
 python-dateutil==1.5
 python-gflags==2.0
 pytz==2013.9
