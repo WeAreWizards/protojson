@@ -13,7 +13,21 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
       method: 'GET',
       url: '/api/contacts',
        headers: {
-         'Content-Type': 'application/json'
+         'Accept': 'application/json'
+       }
+    };
+
+    $http(req).success(function(data) {
+      $scope.contacts = data;
+    });
+  };
+
+  $scope.getContactsProtobuf = function() {
+    var req = {
+      method: 'GET',
+      url: '/api/contacts',
+       headers: {
+         'Accept': 'application/x-protobuf'
        }
     };
 
@@ -23,5 +37,6 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
   };
 
   // Init page with json data
+  $scope.getContactsProtobuf();
   $scope.getContacts();
 });

@@ -37,13 +37,15 @@ def get_protobuf_data():
     """Need to protobuf-ize the data"""
     pb_contacts = []
     for contact in contacts:
+        address =addressbook_pb2.Address()
+        if contact['address'].get('address_lines'):
+            address.address_lines.extend(contact['address']['address_lines'])
+        if 'postcode' in contact['address']:
+            address.postcode = contact['address']['postcode']
         pb_contacts.append(addressbook_pb2.Contact(
-            first_name=contact['address']['first_name'],
-            last_name=contact['address']['last_name'],
-            address=addressbook_pb2.Address(
-                address_lines=contact['address']['address_lines'],
-                postcode=contact['address']['postcode'],
-            ),
+            first_name=contact['first_name'],
+            last_name=contact['last_name'],
+            address=address,
             phone_numbers=[
                 addressbook_pb2.Phone(
                     type=addressbook_pb2.MOBILE if num['type'] == 'MOBILE' else addressbook_pb2.LANDLINE,

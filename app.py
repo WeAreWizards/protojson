@@ -88,9 +88,11 @@ def home():
 
 @app.route('/api/contacts', methods=['GET', 'POST'])
 def contacts():
-    content_type = request.headers['Content-Type']
+    wants_json = request.headers['Accept'] == "application/json"
     if request.method == 'GET':
-        return json.dumps(data.contacts)
+        if wants_json:
+            return json.dumps(data.contacts)
+        return data.get_protobuf_data().SerializeToString()
 
 
 
