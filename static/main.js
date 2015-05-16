@@ -17,6 +17,7 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
   $scope.contacts = [];
 
   $scope.getContacts = function() {
+    $scope.contacts = [];
     var req = {
       method: 'GET',
       url: '/api/contacts',
@@ -31,7 +32,7 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
   };
 
   $scope.getContactsProtobuf = function() {
-    console.log($scope);
+    $scope.contacts = [];
     var xhr = ProtoBuf.Util.XHR();
     xhr.open(
         "GET",

@@ -9,7 +9,8 @@
 
 <body ng-controller="AddressBookCtrl">
   <h1>Your friendly address book</h1>
-
+  <button ng-click="getContacts()">Get all with JSON</button>
+  <button ng-click="getContactsProtobuf()">Get all with ProtoBuf</button>
   <ul>
     <li ng-repeat="contact in contacts track by $index">
     {[ contact.first_name ]} {[ contact.last_name ]}
