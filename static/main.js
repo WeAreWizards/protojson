@@ -49,6 +49,6 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
   };
 
   // Init page with json data
-  $scope.getContactsProtobuf();
-  //$scope.getContacts();
+  //$scope.getContactsProtobuf();
+  $scope.getContacts();
 });
