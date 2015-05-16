@@ -5,6 +5,14 @@ protojson.config(['$interpolateProvider', function($interpolateProvider) {
   $interpolateProvider.endSymbol(']}');
 }]);
 
+
+var ProtoBuf = dcodeIO.ProtoBuf;
+var AddressBook;
+
+ProtoBuf.loadProtoFile("/static/addressbook.proto", function(err, builder) {
+  AddressBook = builder.build("AddressBook");
+});
+
 protojson.controller('AddressBookCtrl', function($scope, $http) {
   $scope.contacts = [];
 
@@ -23,20 +31,23 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
   };
 
   $scope.getContactsProtobuf = function() {
-    var req = {
-      method: 'GET',
-      url: '/api/contacts',
-       headers: {
-         'Accept': 'application/x-protobuf'
-       }
-    };
-
-    $http(req).success(function(data) {
-      $scope.contacts = data;
-    });
+    console.log($scope);
+    var xhr = ProtoBuf.Util.XHR();
+    xhr.open(
+        "GET",
+        "/api/contacts",
+        true
+    );
+    xhr.responseType = "arraybuffer";
+    xhr.onload = function(evt) {
+        var msg = AddressBook.decode(xhr.response);
+        $scope.contacts = msg.contacts;
+        $scope.$apply();
+    }
+    xhr.send(null);
   };
 
   // Init page with json data
   $scope.getContactsProtobuf();
-  $scope.getContacts();
+  //$scope.getContacts();
 });
