@@ -53,7 +53,7 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
     xhr.send(null);
   };
 
-  var saveJSON = function(contact) {
+  var saveJSON = function(_contact) {
     var req = {
       method: 'POST',
       url: '/api/contacts',
@@ -70,10 +70,10 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
     });
   };
 
-  var saveProtobuf = function(contact) {
+  var saveProtobuf = function(_contact) {
     var contact = new Contact({
-      first_name: contact['firstName'],
-      last_name: contact['lastName'],
+      first_name: _contact['firstName'],
+      last_name: _contact['lastName'],
     });
     var req = {
       method: 'POST',
