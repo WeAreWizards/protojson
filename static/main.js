@@ -7,15 +7,20 @@ protojson.config(['$interpolateProvider', function($interpolateProvider) {
 
 
 var ProtoBuf = dcodeIO.ProtoBuf;
-var AddressBook;
+var AddressBook, Contact;
 
 ProtoBuf.loadProtoFile("/static/addressbook.proto", function(err, builder) {
   AddressBook = builder.build("AddressBook");
+  Contact = builder.build("Contact");
 });
 
 protojson.controller('AddressBookCtrl', function($scope, $http) {
   $scope.contacts = [];
-
+  $scope.newContact = {
+    firstName: "",
+    lastName: ""
+  };
+  $scope.useProtobuf = false;
   $scope.getContacts = function() {
     $scope.contacts = [];
     var req = {
@@ -48,7 +53,46 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
     xhr.send(null);
   };
 
+  var saveJSON = function(contact) {
+    var req = {
+      method: 'POST',
+      url: '/api/contacts',
+      data: {
+        first_name: contact.firstName,
+        last_name: contact.lastName
+      },
+       headers: {
+         'Accept': 'application/json'
+       }
+    };
+    $http(req).success(function(data) {
+      $scope.contacts = data;
+    });
+  };
+
+  var saveProtobuf = function(contact) {
+    var contact = new Contact({
+      first_name: contact['firstName'],
+      last_name: contact['lastName'],
+    });
+    var req = {
+      method: 'POST',
+      url: '/api/contacts',
+      data: contact.toArrayBuffer()
+    };
+    $http(req).success(function(data) {
+      console.log(data);
+    });
+  };
+
+  $scope.saveContact = function() {
+    if ($scope.useProtobuf) {
+      saveProtobuf($scope.newContact);
+    } else {
+      saveJSON($scope.newContact);
+    }
+  };
+
   // Init page with json data
-  //$scope.getContactsProtobuf();
   $scope.getContacts();
 });

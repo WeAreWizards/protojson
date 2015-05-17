@@ -10,29 +10,6 @@ import data
 app = Flask(__name__)
 Compress(app)
 
-# @app.route('/api/search-by-name.json', methods=['GET'])
-# def json_search_by_name():
-#     name = flask.request.args.get('name')
-#     result = []
-
-#     for x in GLOBAL.book_dict.get('contacts', []):
-#         if name in x['address']['first_name'] or name in x['address']['last_name']:
-#             result.append(x)
-
-#     return json.dumps(result)
-
-
-# @app.route('/api/search-by-name.pb', methods=['GET'])
-# def pb_search_by_name():
-#     name = flask.request.args.get('name')
-#     result = addressbook_pb2.SearchResult()
-
-#     for x in GLOBAL.book_pb.contacts:
-#         if name in x.address.first_name or name in x.address.last_name:
-#             result.contacts.extend([x])
-
-#     return result.SerializeToString()
-
 
 @app.route('/', methods=['GET'])
 def home():
@@ -47,7 +24,19 @@ def contacts():
             return json.dumps(data.contacts)
         return data.get_protobuf_data().SerializeToString()
 
+    # POST branch
+    if wants_json:
+        data.contacts.append(request.get_json())
+        return json.dumps(data.contacts)
 
+    # Won't persist protobuf ones, just to see how that works
+    #import ipdb; ipdb.set_trace()
+    # address_book = data.get_protobuf_data()
+    # address_book.append(
+    #     addressbook_pb2.Contact(request.get_json()
+    #     )
+    # )
+    return data.get_protobuf_data().SerializeToString()
 
 if __name__ == '__main__':
     app.run(debug=True)
