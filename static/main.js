@@ -38,19 +38,15 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
 
   $scope.getContactsProtobuf = function() {
     $scope.contacts = [];
-    var xhr = ProtoBuf.Util.XHR();
-    xhr.open(
-        "GET",
-        "/api/contacts",
-        true
-    );
-    xhr.responseType = "arraybuffer";
-    xhr.onload = function(evt) {
-        var msg = AddressBook.decode(xhr.response);
-        $scope.contacts = msg.contacts;
-        $scope.$apply();
-    }
-    xhr.send(null);
+    var req = {
+      method: 'GET',
+      url: '/api/contacts',
+      responseType: 'arraybuffer'
+    };
+    $http(req).success(function(data) {
+      var msg = AddressBook.decode(data);
+      $scope.contacts = msg.contacts;
+    });
   };
 
   var saveJSON = function(_contact) {
