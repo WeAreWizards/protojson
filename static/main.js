@@ -78,10 +78,17 @@ protojson.controller('AddressBookCtrl', function($scope, $http) {
     var req = {
       method: 'POST',
       url: '/api/contacts',
-      data: contact.toArrayBuffer()
+      responseType: 'arraybuffer',
+      transformRequest: function(r) { return r;},
+      data: contact.toArrayBuffer(),
+      headers: {
+        'Content-Type': 'binary/octet-stream'
+      }
     };
+
     $http(req).success(function(data) {
-      console.log(data);
+      var msg = AddressBook.decode(data);
+      $scope.contacts = msg.contacts;
     });
   };
 

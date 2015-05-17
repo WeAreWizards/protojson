@@ -30,13 +30,11 @@ def contacts():
         return json.dumps(data.contacts)
 
     # Won't persist protobuf ones, just to see how that works
-    #import ipdb; ipdb.set_trace()
-    # address_book = data.get_protobuf_data()
-    # address_book.append(
-    #     addressbook_pb2.Contact(request.get_json()
-    #     )
-    # )
-    return data.get_protobuf_data().SerializeToString()
+    contact = addressbook_pb2.Contact()
+    contact.ParseFromString(request.data)
+    address_book = data.get_protobuf_data()
+    address_book.contacts.extend([contact])
+    return address_book.SerializeToString()
 
 if __name__ == '__main__':
     app.run(debug=True)
